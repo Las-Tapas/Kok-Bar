@@ -1,7 +1,0 @@
-CREATE TABLE bestellingen (
-    bestelnummer INT(11) AUTO_INCREMENT PRIMARY KEY,
-    tafelnummer INT(11) NOT NULL,
-    gerechten VARCHAR(255) NOT NULL,
-    status ENUM('In behandeling', 'Gereed') NOT NULL DEFAULT 'In behandeling',
-    aangemaakt_op TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
