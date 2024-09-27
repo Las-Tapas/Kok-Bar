@@ -1,17 +1,31 @@
 <?php
-include 'BestellingOverview.php';
+// Database connection details
+$servername = "localhost";  // Change if your MySQL server is hosted elsewhere
+$username = "root";  // Replace with your MySQL username
+$password = "";  // Replace with your MySQL password
+$dbname = "old_orders_db";  // Replace with your database name
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// SQL query to fetch orders from the old_orders table
+$sql = "SELECT id, table_number, items, completed, order_time, deleted_at FROM old_orders";
+$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Management - Las Tapas</title>
+    <title>Old Orders - Las Tapas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-
     <nav>
         <ul>
             <li><a href="LT.php">Bestellingen</a></li>
@@ -23,37 +37,35 @@ include 'BestellingOverview.php';
 
     <main>
         <section class="orders-section">
-            <h2>Bestellingen</h2>
+            <h2>Oude Bestellingen</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Bestelnummer</th>
+                        <th>ID</th>
                         <th>Tafelnummer</th>
                         <th>Gerechten</th>
-                        <th>Status</th>
-                        <th>Aangemaakt op</th>
-                        <th>Acties</th>
+                        <th>Voltooid</th>
+                        <th>Besteld op</th>
+                        <th>Verwijderd op</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    if ($result->num_rows > 0) {
-                        // Output data of each row
+                    // Check if there are results and fetch them
+                    if ($result && $result->num_rows > 0) {
+                        // Output data for each row
                         while ($row = $result->fetch_assoc()) {
-                            $status = htmlspecialchars($row['status']);
-                            $buttonText = ($status === 'Gereed') ? 'Verwijder Bestelling' : 'Markeer als Gereed';
-                            $buttonAction = ($status === 'Gereed') ? 'verwijderBestelling(this)' : 'markeerAlsGereed(this)';
                             echo "<tr>";
-                            echo "<td>" . htmlspecialchars($row['bestelnummer']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['tafelnummer']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['gerechten']) . "</td>";
-                            echo "<td class='status'>" . $status . "</td>";
-                            echo "<td>" . htmlspecialchars($row['aangemaakt_op']) . "</td>";
-                            echo "<td><button onclick='$buttonAction'>$buttonText</button></td>";
+                            echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['table_number']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['items']) . "</td>";
+                            echo "<td>" . ($row['completed'] ? 'Ja' : 'Nee') . "</td>";
+                            echo "<td>" . htmlspecialchars($row['order_time']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['deleted_at']) . "</td>";
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='6'>Geen bestellingen gevonden</td></tr>";
+                        echo "<tr><td colspan='6'>Geen oude bestellingen gevonden.</td></tr>";
                     }
 
                     // Close the database connection
@@ -63,32 +75,5 @@ include 'BestellingOverview.php';
             </table>
         </section>
     </main>
-
-    <script>
-        // Markeer bestelling als gereed
-        function markeerAlsGereed(button) {
-            const row = button.closest('tr');
-            row.querySelector('.status').textContent = 'Gereed';
-            button.textContent = 'Verwijder Bestelling';
-            button.setAttribute('onclick', 'verwijderBestelling(this)');
-        }
-
-        // Verwijder bestelling
-        function verwijderBestelling(button) {
-            const row = button.closest('tr');
-            row.remove();
-        }
-
-        function markAsComplete(button) {
-    // Vind de rij waar de knop zich bevindt
-    var row = button.closest('tr');
-    
-    // Zoek de cel met de status (hier is het de 4e kolom dus index 3)
-    var statusCell = row.querySelector('.status');
-    
-    // Verander de tekst naar "Gereed"
-    statusCell.textContent = 'Gereed';
-  }
-    </script>
 </body>
 </html>
