@@ -12,6 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
 // Fetch orders
 $sql = "SELECT id, table_number, items, completed, order_time FROM orders ORDER BY order_time ASC";
 $result = $conn->query($sql);
