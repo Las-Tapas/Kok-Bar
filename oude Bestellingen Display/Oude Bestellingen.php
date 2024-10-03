@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // SQL query to fetch orders from the old_orders table
-$sql = "SELECT id, table_number, items, completed, order_time, deleted_at FROM old_orders";
+$sql = "SELECT id, table_number, items, order_time, deleted_at FROM old_orders";
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
@@ -41,12 +41,12 @@ $result = $conn->query($sql);
             <table>
                 <thead>
                     <tr>
+                        
                         <th>ID</th>
                         <th>Tafelnummer</th>
                         <th>Gerechten</th>
                         <th>Voltooid</th>
                         <th>Besteld op</th>
-                        <th>Verwijderd op</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +59,6 @@ $result = $conn->query($sql);
                             echo "<td>" . htmlspecialchars($row['id']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['table_number']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['items']) . "</td>";
-                            echo "<td>" . ($row['completed'] ? 'Ja' : 'Nee') . "</td>";
                             echo "<td>" . htmlspecialchars($row['order_time']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['deleted_at']) . "</td>";
                             echo "</tr>";
