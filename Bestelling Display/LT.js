@@ -6,7 +6,7 @@ function loadOrders() {
         .then(response => response.json())
         .then(orders => {
             const ordersDiv = document.getElementById('orders');
-            ordersDiv.innerHTML = ''; // Clear previous orders
+            ordersDiv.innerHTML = ''; 
             orders.forEach(order => {
                 const orderDiv = document.createElement('div');
                 orderDiv.className = 'order';
