@@ -16,14 +16,13 @@
         </ul>
     </nav>    
 
-    
     <div class="container">
     <div class="header-container">
         <h1>kitchen display</h1>
         <img src="images/stier.png" alt="Stier afbeelding">
     </div>
         <div id="orders">
-            <!-- Orders will be dynamically loaded here -->
+            <!-- Orders will be loaded here -->
         </div>
     </div>
     <script src="LT.js"></script>
