@@ -3,7 +3,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "kitchen_display";
-$oldOrdersDb = "old_orders_db"; // Name of the database for old orders
+$oldOrdersDb = "old_orders_db"; 
 
 // Create connection to the original database
 $conn = new mysqli($servername, $username, $password, $dbname);
