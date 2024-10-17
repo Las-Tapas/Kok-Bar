@@ -32,6 +32,6 @@ function removeOrder(orderId) {
     .then(response => response.text())
     .then(response => {
         console.log(response);
-        loadOrders(); // Reload orders after removal
+        loadOrders(); 
     });
 }
