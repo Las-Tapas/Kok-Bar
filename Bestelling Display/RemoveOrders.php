@@ -5,7 +5,7 @@ $password = "";
 $dbname = "kitchen_display";
 $oldOrdersDb = "old_orders_db"; 
 
-// Create connection to the original database
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
