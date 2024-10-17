@@ -4,7 +4,7 @@ $username = "root";
 $password = "";
 $dbname = "kitchen_display";
 
-// Create connection
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 
